@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <<title>江玲叶_2017339960035课程设计</title>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link href="lib/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  <link href="lib/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="lib/advanced-datatable/css/DT_bootstrap.css" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="/logout" class="logo"><b>Jalin<span>yiel</span></b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><img src="img/student.jpeg" class="img-circle" width="80"></p>
+          <h5 class="centered">Student</h5>
+
+          <li class="sub-menu">
+            <a  href="javascript:;">
+              <i class="fa fa-tasks"></i>
+              <span>Personal Information</span>
+              </a>
+            <ul class="sub">           
+              <li ><a th:href = "@{/changePassword}">Change Password</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a class="active" href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>Database</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/allcourses}">All courses</a></li>
+              <li><a th:href="@{/choosedCourses}">Choosed coursed</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Courses Information</h3>
+        <div class="row mb">
+          <!-- page start-->
+          <div class="content-panel">
+            <div class="adv-table">
+              <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <thead>
+                  <tr>
+                    <th>Course NO</th>
+                    <th>Course name</th>
+                    <th class="hidden-phone">Credit</th>
+                    <th class="hidden-phone">Teacher Name</th>
+                    <th class="hidden-phone">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr class = "gradeX" th:each = "courIte,courStat:${courses}">
+                      <td th:attr = "courNo = ${courIte.courNo},teacherId = ${courIte.teacherId}" th:text = "${courIte.courNo}"></td>
+                      <td th:text = "${courIte.courName}"></td>
+                      <td th:text = "${courIte.credit}"></td>
+                      <td th:text = "${courIte.teacherName}"></td>
+                      <td th:text = "${courIte.time}"></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- page end-->
+        </div>
+        <!-- /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      /*
+       * Insert a 'details' column to the table
+       */
+      var nCloneTh = document.createElement('th');
+      var nCloneTd = document.createElement('td');
+      nCloneTd.innerHTML = "<button type=\"button\" class=\"btn btn-round btn-success btn-xs\">选课</button>" +
+              "<button type=\"button\" class=\"btn btn-round btn-danger btn-xs\">退课</button>";
+      nCloneTd.className = "center";
+
+      $('#hidden-table-info thead tr').each(function() {
+        this.insertBefore(nCloneTh, this.childNodes[0]);
+      });
+
+      $('#hidden-table-info tbody tr').each(function() {
+        this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+      });
+
+      /*
+       * Initialse DataTables, with no sorting on the 'details' column
+       */
+      var oTable = $('#hidden-table-info').dataTable({
+        "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [0]
+        }],
+        "aaSorting": [
+          [1, 'asc']
+        ]
+      });
+
+      /* Add event listener for opening and closing details
+       * Note that the indicator for showing which row is open is not controlled by DataTables,
+       * rather it is done here
+       */
+      $(document).on('click','.btn-success' ,function() {
+        // alert("teaId" + $(this).parent("td").next().attr("teacherId") + "courNo " +$(this).parent("td").next().attr("courNo"))
+        if(confirm("确定要选课吗？")){
+          $.ajax({
+            url:"/chooseCourse",
+            type:"POST",
+            data: {
+              "teacherId":$(this).parent("td").next().attr("teacherId"),
+              "courNo": $(this).parent("td").next().attr("courNo")
+            },
+            success:function (result) {
+              alert(result.message);
+              location.reload();
+            }
+          })
+        }
+      });
+
+
+
+      $(document).on("click",".btn-danger",function () {
+        if(confirm("确定要退课吗？")){
+          $.ajax({
+            url:"/quitCourse",
+            type:"POST",
+            data: {
+              "teacherId":$(this).parent("td").next().attr("teacherId"),
+              "courNo": $(this).parent("td").next().attr("courNo")
+            },
+            success:function (result) {
+              alert(result.message);
+              location.reload();
+            }
+          })
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

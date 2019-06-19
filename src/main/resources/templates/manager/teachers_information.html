@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>江玲叶_2017339960035课程设计</title>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link href="lib/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  <link href="lib/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="lib/advanced-datatable/css/DT_bootstrap.css" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" >创建新教师用户</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id = "tea_cretForm">
+            <div class="form-group">
+              <label for="teaId" class="col-sm-2 control-label">编号</label>
+              <div class="col-sm-10">
+                <p class="form-control" id = "teaIdCret"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="teaName" class="col-sm-2 control-label">姓名</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "teaName" id="teaNameCret" >
+                <span id="teaNameCretHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="department" class="col-sm-2 control-label">系</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "department" id="departmentCret" >
+                <span id="departmentCretHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-sm-2 control-label">密码</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "password" id="passwordCret" >
+                <span id="passwordtCretHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" id = "create_button">创建</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">学生编辑</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id = "tea_form">
+            <div class="form-group">
+              <label for="teaId" class="col-sm-2 control-label">编号</label>
+              <div class="col-sm-10">
+                <p class="form-control" id = "teaId"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="teaName" class="col-sm-2 control-label">姓名</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "teaName" id="teaName" >
+                <span id="teaNameHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="department" class="col-sm-2 control-label">系</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "department" id="department" >
+                <span id="departmentHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-sm-2 control-label">密码</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "password" id="password" >
+                <span id="passwordtHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" id = "save_button">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="/logout" class="logo"><b>Jalin<span>yiel</span></b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><img src="img/supermanger.jpeg" class="img-circle" width="80"></p>
+          <h5 class="centered">Super Manager</h5>
+       
+        
+        
+        
+          <li class="sub-menu">
+            <a  href="javascript:;">
+              <i class="fa fa-tasks"></i>
+              <span>Personal Information</span>
+              </a>
+            <ul class="sub">           
+              <li ><a th:href = "@{/changePassword}">Change Password</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a class="active" href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>Database</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/studentsInformation}">Students Information</a></li>
+              <li><a th:href="@{/courseInformation}">Courses Information</a></li>
+              <li><a th:href="@{/teachersInformation}">Teachers Information</a></li>
+              <li><a th:href="@{/grades}">Change Grades</a></li>
+              <li><a th:href="@{/teachingTasks}">Change Teaching Tasks</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Teachers Information</h3>
+        <div class="row mb">
+          <!-- page start-->
+          <div class="content-panel">
+            <div class="adv-table">
+              <div class = "row">
+                <div class = "col-md-1 col-md-offset-11">
+                  <button type="button" class="btn btn-warning">新增</button>
+                </div>
+              </div>
+              <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <thead>
+                  <tr>
+                    <th>Teacher ID</th>
+                    <th>Teacher Name</th>
+                    <th class="hidden-phone">Department</th>
+                    <th class="hidden-phone">Password</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class = "gradeX" th:each = "teaIte,teaStat:${teachers}">
+                    <td th:attr = "teaId = ${teaIte.teacherId},teaName = ${teaIte.teacherName},
+                     department = ${teaIte.department},password = ${teaIte.password} "
+                        th:text = "${teaIte.teacherId}"></td>
+                    <td th:text = "${teaIte.teacherName}"></td>
+                    <td th:text = "${teaIte.department}"></td>
+                    <td th:text = "${teaIte.password}"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- page end-->
+        </div>
+        <!-- /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      /*
+       * Insert a 'details' column to the table
+       */
+      var nCloneTh = document.createElement('th');
+      var nCloneTd = document.createElement('td');
+      nCloneTd.innerHTML = "<button type=\"button\" class=\"btn btn-round btn-success btn-xs\">修改</button>" +
+              "<button type=\"button\" class=\"btn btn-round btn-danger btn-xs\">删除</button>";
+      nCloneTd.className = "center";
+
+      $('#hidden-table-info thead tr').each(function() {
+        this.insertBefore(nCloneTh, this.childNodes[0]);
+      });
+
+      $('#hidden-table-info tbody tr').each(function() {
+        this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+      });
+
+      /*
+       * Initialse DataTables, with no sorting on the 'details' column
+       */
+      var oTable = $('#hidden-table-info').dataTable({
+        "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [0]
+        }],
+        "aaSorting": [
+          [1, 'asc']
+        ]
+      });
+      var teacherId;
+      var password;
+      /* Add event listener for opening and closing details
+       * Note that the indicator for showing which row is open is not controlled by DataTables,
+       * rather it is done here
+       */
+      $(document).on('click','.btn-success' ,function() {
+        var teaId = $(this).parent("td").next().attr("teaId")
+        var teaName = $(this).parent("td").next().attr("teaName")
+        var department = $(this).parent("td").next().attr("department")
+        password = $(this).parent("td").next().attr("password")
+        $("#myModal").modal({
+          backdrop:"static"
+        });
+        $("#teaId").text(teaId)
+        $("#teaName").attr("placeholder",teaName)
+        $("#department").attr("placeholder",department)
+        $("#password").attr("placeholder",password)
+        teacherId = teaId;
+      });
+
+      $("#save_button").on("click",function () {
+        $.ajax({
+          url:"/updatePassword",
+          type:"POST",
+          dataType:"json",
+          contentType:"application/json; charset=utf-8",
+          data: JSON.stringify({
+            userId:teacherId,
+            password : $("#password").val(),
+            identity:"教师"
+          }),
+        })
+        $.ajax({
+          url:"/teaUpdate",
+          type:"POST",
+          data:JSON.stringify({
+            "teacherId":teacherId,
+            "teacherName":$("#teaName").val(),
+            "department":$("#department").val(),
+          }),
+          contentType:"application/json; charset=utf-8",
+          dataType:'json',
+          success:function (result) {
+            alert(result.message);
+            location.reload();
+          }
+        })
+        $("#myModal").modal("hide");
+      });
+
+      $(document).on("click",".btn-danger",function () {
+        if(confirm("确定要删除吗？")){
+          $.ajax({
+            url:"/deleteUser",
+            type:"POST",
+            data: {
+              "id": $(this).parent("td").next().attr("teaId")
+            },
+            success:function (result) {
+              alert(result.message);
+              location.reload();
+            }
+          })
+        }
+      });
+
+      $(".btn-warning").on("click",function() {
+        $("#createModal").modal({
+          backdrop:"static"
+        });
+      })
+
+      $("#create_button").on("click",function () {
+        $.ajax({
+          url:"/createUser",
+          type:"POST",
+          dataType:"json",
+          async:"false",
+          contentType:"application/json; charset=utf-8",
+          data: JSON.stringify({
+            userId:$("#teaIdCret").val(),
+            password : $("#passwordCret").val(),
+            identity:"教师"
+          }),
+        })
+        $.ajax({
+          url:"/createTeacher",
+          type:"POST",
+          async:"false",
+          data:JSON.stringify({
+            "teacherId":$("#teaIdCret").val(),
+            "teacherName":$("#teaNameCret").val(),
+            "department":$("#departmentCret").val(),
+          }),
+          contentType:"application/json; charset=utf-8",
+          dataType:'json',
+          success:function (result) {
+            alert(result.message);
+            location.reload();
+          }
+        })
+        $("#myModal").modal("hide");
+      })
+    });
+  </script>
+</body>
+
+</html>

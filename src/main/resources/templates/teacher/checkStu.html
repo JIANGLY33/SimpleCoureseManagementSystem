@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>江玲叶_2017339960035课程设计</title>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link href="lib/advanced-datatable/css/demo_page.css" rel="stylesheet" />
+  <link href="lib/advanced-datatable/css/demo_table.css" rel="stylesheet" />
+  <link rel="stylesheet" href="lib/advanced-datatable/css/DT_bootstrap.css" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">打分</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id = "grades_form">
+            <div class="form-group">
+              <label for="grades" class="col-sm-2 control-label">成绩</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name = "grades" id="grades" >
+                <span id="gradesHelpBlock" class="help-block"></span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" id = "save_button">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="/logout" class="logo"><b>Jalin<span>yiel</span></b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><img src="img/teacher.jpg" class="img-circle" width="80"></p>
+          <h5 class="centered">Teacher</h5>
+
+          <li class="sub-menu">
+            <a  href="javascript:;">
+              <i class="fa fa-tasks"></i>
+              <span>Personal Information</span>
+              </a>
+            <ul class="sub">           
+              <li ><a th:href = "@{/changePassword}">Change Password</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a class="active" href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>Database</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/teaAllCourses}">All courses</a></li>
+              <li><a th:href="@{/tasks}">Tasks</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Students Information</h3>
+        <div class="row mb">
+          <!-- page start-->
+          <div class="content-panel">
+            <div class="adv-table">
+              <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th class="hidden-phone">Course Name</th>
+                    <th class="hidden-phone">Grades</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr class = "gradeX" th:each = "taskIte,taskStat:${tasks}">
+                      <td th:attr = "courNo = ${taskIte.courNo},stuId = ${taskIte.stuId},teaId = ${taskIte.teacherId}"
+                          th:text = "${taskIte.stuId}"></td>
+                      <td th:text = "${taskIte.stuName}"></td>
+                      <td th:text = "${taskIte.courName}"></td>
+                      <td th:text = "${taskIte.grades}"></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- page end-->
+        </div>
+        <!-- /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      /*
+       * Insert a 'details' column to the table
+       */
+      var nCloneTh = document.createElement('th');
+      var nCloneTd = document.createElement('td');
+      nCloneTd.innerHTML =  "<button type=\"button\" class=\"btn btn-round btn-success btn-xs\">打分</button>";
+      nCloneTd.className = "center";
+
+      $('#hidden-table-info thead tr').each(function() {
+        this.insertBefore(nCloneTh, this.childNodes[0]);
+      });
+
+      $('#hidden-table-info tbody tr').each(function() {
+        this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+      });
+
+      /*
+       * Initialse DataTables, with no sorting on the 'details' column
+       */
+      var oTable = $('#hidden-table-info').dataTable({
+        "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [0]
+        }],
+        "aaSorting": [
+          [1, 'asc']
+        ]
+      });
+
+      /* Add event listener for opening and closing details
+       * Note that the indicator for showing which row is open is not controlled by DataTables,
+       * rather it is done here
+       */
+      var stuId;
+      var courNo;
+      var teaId;
+      $(document).on('click','.btn-success' ,function() {
+        stuId = $(this).parent("td").next().attr("stuId")
+        courNo = $(this).parent("td").next().attr("courNo")
+        teaId = $(this).parent("td").next().attr("teaId")
+        var grades = $(this).parent("td").next().attr("grades")
+        $("#myModal").modal({
+          backdrop:"static"
+        });
+        $("#grades").attr("placeholder",grades)
+      });
+
+      $("#save_button").on("click",function () {
+        $.ajax({
+          url:"/changeGrades",
+          type:"POST",
+          data:JSON.stringify({
+            "stuId":stuId,
+            "courNo":courNo,
+            "teacherId":teaId,
+            "grades":$("#grades").val(),
+          }),
+          contentType:"application/json; charset=utf-8",
+          dataType:'json',
+          success:function (result) {
+            alert(result.message);
+            httpPost("/checkStudents",courNo);  //即时显示打分结果
+          }
+        })
+        $("#myModal").modal("hide");
+      });
+      function httpPost(URL, PARAMS) {
+        var temp = document.createElement("form");
+        temp.action = URL;
+        temp.method = "post";
+        temp.style.display = "none";
+
+        var opt = document.createElement("textarea");
+        opt.name = "courNo";
+        opt.value = PARAMS;
+        temp.appendChild(opt);
+
+        document.body.appendChild(temp);
+        temp.submit();
+
+        return temp;
+      }
+    });
+  </script>
+</body>
+
+</html>

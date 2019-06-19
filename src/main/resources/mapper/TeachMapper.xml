@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jalinyiel.coursystem.system.repository.TeachMapper">
+  <resultMap id="BaseResultMap" type="com.jalinyiel.coursystem.system.domain.Teach">
+    <id column="teacher_id" jdbcType="BIGINT" property="teacherId" />
+    <id column="cour_no" jdbcType="INTEGER" property="courNo" />
+    <result column="time" jdbcType="CHAR" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    teacher_id, cour_no, time
+  </sql>
+  <select id="selectByExample" parameterType="com.jalinyiel.coursystem.system.domain.TeachExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teach
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.jalinyiel.coursystem.system.domain.TeachKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teach
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+      and cour_no = #{courNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.jalinyiel.coursystem.system.domain.TeachKey">
+    delete from teach
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+      and cour_no = #{courNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jalinyiel.coursystem.system.domain.TeachExample">
+    delete from teach
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jalinyiel.coursystem.system.domain.Teach">
+    insert into teach (teacher_id, cour_no, time
+      )
+    values (#{teacherId,jdbcType=BIGINT}, #{courNo,jdbcType=INTEGER}, #{time,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jalinyiel.coursystem.system.domain.Teach">
+    insert into teach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="courNo != null">
+        cour_no,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="courNo != null">
+        #{courNo,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jalinyiel.coursystem.system.domain.TeachExample" resultType="java.lang.Long">
+    select count(*) from teach
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update teach
+    <set>
+      <if test="record.teacherId != null">
+        teacher_id = #{record.teacherId,jdbcType=BIGINT},
+      </if>
+      <if test="record.courNo != null">
+        cour_no = #{record.courNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update teach
+    set teacher_id = #{record.teacherId,jdbcType=BIGINT},
+      cour_no = #{record.courNo,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jalinyiel.coursystem.system.domain.Teach">
+    update teach
+    <set>
+      <if test="time != null">
+        time = #{time,jdbcType=CHAR},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+      and cour_no = #{courNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jalinyiel.coursystem.system.domain.Teach">
+    update teach
+    set time = #{time,jdbcType=CHAR}
+    where teacher_id = #{teacherId,jdbcType=BIGINT}
+      and cour_no = #{courNo,jdbcType=INTEGER}
+  </update>
+</mapper>
