@@ -32,7 +32,8 @@ public class UserService {
 
     public void changePasswordById(User user) {
         System.out.println(user);
-        userMapper.changePasswordById(user);
+//        userMapper.changePasswordById(user);
+        userMapper.modifyPassword(user);
     }
 
     public void insert(User user) {

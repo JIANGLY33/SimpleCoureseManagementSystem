@@ -34,7 +34,7 @@ public class StudentController {
     public String gotoStudentsInformation(Model model,HttpServletRequest request) {
         List<StudentDTO> studentDTOS = studentService.getAllStuDTO();
         model.addAttribute("students",studentDTOS);
-        return jumper.go("/manager/students_information",request);
+        return jumper.go("manager/students_information",request);
     }
 
     @RequestMapping("/gotoStudentIndex")

@@ -3,6 +3,7 @@ package com.jalinyiel.coursystem.system.service;
 import com.jalinyiel.coursystem.system.domain.Choose;
 import com.jalinyiel.coursystem.system.domain.ChooseDTO;
 import com.jalinyiel.coursystem.system.repository.ChooseMapper;
+import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class ChooseService {
         chooseMapper.add(choose);
     }
 
-    public List<ChooseDTO> findByTeaIdAndCourNo(Long teaId, Long courNo) {
+    public List<ChooseDTO> findByTeaIdAndCourNo(Long teaId, Integer courNo) {
         System.out.println("teaId: " +teaId + "courNo: " + courNo);
         return chooseMapper.findByTeaIdAndCourNo(teaId,courNo);
     }

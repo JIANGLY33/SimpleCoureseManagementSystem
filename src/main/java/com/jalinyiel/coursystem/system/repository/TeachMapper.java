@@ -1,31 +1,36 @@
 package com.jalinyiel.coursystem.system.repository;
 
 import com.jalinyiel.coursystem.system.domain.Teach;
-import com.jalinyiel.coursystem.system.domain.TeachExample;
-import com.jalinyiel.coursystem.system.domain.TeachKey;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+
+import org.apache.ibatis.annotations.*;
 
 public interface TeachMapper {
-    long countByExample(TeachExample example);
 
-    int deleteByExample(TeachExample example);
+    @Select("SELECT * FROM teach")
+    @Results({
+            @Result(column = "teacher_id",property = "teacherId"),
+            @Result(column = "cour_no",property = "courNo"),
+            @Result(column = "time",property = "time")
+    })
+    List<Teach> getAll();
 
-    int deleteByPrimaryKey(TeachKey key);
+    @Select("SELECT * FROM teach WHERE teacher_id = #{id}")
+    @Results({
+            @Result(column = "teacher_id",property = "teacherId"),
+            @Result(column = "cour_no",property = "courNo"),
+            @Result(column = "time",property = "time")
+    })
+    List<Teach> findById(Long id);
 
-    int insert(Teach record);
+    @Update("UPDATE teach SET time = #{time} WHERE teacher_id = #{teacherId} AND cour_no = #{courNo}")
+    void updateTeach(Teach teach);
 
-    int insertSelective(Teach record);
+    @Delete("DELETE FROM teach WHERE teacher_id = #{teacherId} AND cour_no = #{courNo}")
+    void deleteTeach(Teach teach);
 
-    List<Teach> selectByExample(TeachExample example);
-
-    Teach selectByPrimaryKey(TeachKey key);
-
-    int updateByExampleSelective(@Param("record") Teach record, @Param("example") TeachExample example);
-
-    int updateByExample(@Param("record") Teach record, @Param("example") TeachExample example);
-
-    int updateByPrimaryKeySelective(Teach record);
-
-    int updateByPrimaryKey(Teach record);
+    @Insert("INSERT INTO teach(teacher_id,cour_no,time) VALUES (#{teacherId},#{courNo},#{time})")
+    void add(Teach teach);
 }

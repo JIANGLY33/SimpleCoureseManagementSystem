@@ -55,7 +55,7 @@ public class UserController {
         else if(user.getIdentity().equals("教师")){
             return "forward:/gotoTeaIndex";
         }
-        else return "/manager/form_validation";
+        else return "manager/form_validation";
     }
 
     @RequestMapping("/changePassword")
@@ -63,7 +63,7 @@ public class UserController {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         if(user.getIdentity().equals("超级管理员")) {
-            return jumper.go("/manager/form_validation",request);
+            return jumper.go("manager/form_validation",request);
         }
         else if(user.getIdentity().equals("教师")) {
             return jumper.go("forward:/gotoTeaIndex",request);

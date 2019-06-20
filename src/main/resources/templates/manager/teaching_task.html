@@ -80,7 +80,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">时间</label>
               <label class="radio-inline">
-                <input type="radio" name="time" id="timeSpring" value="春季学期" checked>春季学期
+                <input type="radio" name="time" id="timeSpring" value="春季学期">春季学期
               </label>
               <label class="radio-inline">
                 <input type="radio" name="time" id="timeAutumn" value="秋季学期">秋季学期
@@ -274,7 +274,7 @@
           data:JSON.stringify({
             "teacherId":teacherId,
             "courNo":courNo,
-            "time":$("input[type='radio']:checked").val(),
+            "time":document.getElementById("timeSpring").checked?"春季学期":"秋季学期",
           }),
           contentType:"application/json; charset=utf-8",
           dataType:'json',
@@ -294,7 +294,7 @@
             contentType:"application/json; charset=utf-8",
             dataType:'json',
             data: JSON.stringify({
-              "teacherUd": $(this).parent("td").next().attr("teacherId"),
+              "teacherId": $(this).parent("td").next().attr("teacherId"),
               "courNo":$(this).parent("td").next().attr("courNo"),
               "time":$(this).parent("td").next().attr("time")
              }),
@@ -319,7 +319,7 @@
           data:JSON.stringify({
             "teacherId":$("#teacherIdCret").val(),
             "courNo":$("#courNoCret").val(),
-            "time":$("input[type='radio']:checked").val(),
+            "time":document.getElementById("timeSpring").checked ?"春季学期":"秋季学期"
           }),
           contentType:"application/json; charset=utf-8",
           dataType:'json',

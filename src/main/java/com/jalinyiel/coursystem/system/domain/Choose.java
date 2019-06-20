@@ -40,4 +40,13 @@ public class Choose {
     public void setGrades(Short grades) {
         this.grades = grades;
     }
+
+    public Choose() {
+    }
+
+    public Choose(Long stuId, Integer courNo, Long teacherId) {
+        this.stuId = stuId;
+        this.courNo = courNo;
+        this.teacherId = teacherId;
+    }
 }

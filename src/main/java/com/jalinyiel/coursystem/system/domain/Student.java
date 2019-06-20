@@ -13,6 +13,16 @@ public class Student {
         return stuId;
     }
 
+    public Student(Long stuId, String stuName, String classes, String subject) {
+        this.stuId = stuId;
+        this.stuName = stuName;
+        this.classes = classes;
+        this.subject = subject;
+    }
+
+    public Student() {
+    }
+
     public void setStuId(Long stuId) {
         this.stuId = stuId;
     }

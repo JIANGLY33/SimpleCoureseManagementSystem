@@ -1,30 +1,27 @@
 package com.jalinyiel.coursystem.system.repository;
 
 import com.jalinyiel.coursystem.system.domain.User;
-import com.jalinyiel.coursystem.system.domain.UserExample;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+import org.apache.ibatis.annotations.*;
 
 public interface UserMapper {
-    long countByExample(UserExample example);
 
-    int deleteByExample(UserExample example);
+    @Select("SELECT * FROM user WHERE user_id = #{id}")
+    @Results({
+            @Result(column = "user_id",property = "userId"),
+            @Result(column = "password",property = "password"),
+            @Result(column = "identity",property = "identity")
+    })
+    User getOne(Long id);
 
-    int deleteByPrimaryKey(Long userId);
+    @Update("UPDATE user SET password = #{password} WHERE user_id = #{userId}")
+    void modifyPassword(User user);
 
-    int insert(User record);
+    @Delete("DELETE FROM user WHERE user_id = #{id}")
+    void deleteById(Long id);
 
-    int insertSelective(User record);
-
-    List<User> selectByExample(UserExample example);
-
-    User selectByPrimaryKey(Long userId);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    @Insert("INSERT INTO user (user_id,password,identity) VALUES (#{userId},#{password},#{identity})")
+    void insert(User user);
 }

@@ -6,6 +6,7 @@ import com.jalinyiel.coursystem.system.service.CourseService;
 import com.jalinyiel.coursystem.system.service.StudentService;
 import com.jalinyiel.coursystem.system.service.TeacherService;
 import com.jalinyiel.coursystem.system.utils.Jumper;
+import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class ChooseController {
     public String gotoGrades(Model model, HttpServletRequest request) {
         List<Choose> grades = chooseService.getAll();
         model.addAttribute("grades",grades);
-        return jumper.go("/manager/grades",request);
+        return jumper.go("manager/grades",request);
     }
 
     @RequestMapping("/choosedCourses")
@@ -79,7 +80,7 @@ public class ChooseController {
 
     @RequestMapping(value = "/chooseCourse",method = RequestMethod.POST)
     @ResponseBody
-    public Message chooseCourse(Long courNo, Long teacherId,HttpServletRequest request) {
+    public Message chooseCourse(Integer courNo, Long teacherId,HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         Choose choose = new Choose(user.getUserId(),courNo,teacherId);
@@ -89,7 +90,7 @@ public class ChooseController {
 
     @RequestMapping(value = "/quitCourse",method = RequestMethod.POST)
     @ResponseBody
-    public Message quitCourse(Long courNo, Long teacherId,HttpServletRequest request) {
+    public Message quitCourse(Integer courNo, Long teacherId,HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         Choose choose = new Choose(user.getUserId(),courNo,teacherId);
@@ -98,7 +99,7 @@ public class ChooseController {
     }
 
     @RequestMapping("/checkStudents")
-    public String gotoCheckStudent(Long courNo,HttpServletRequest request,Model model) {
+    public String gotoCheckStudent(Integer courNo, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         System.out.println("userId: " + user.getUserId() + "courNo :" + courNo);

@@ -1,30 +1,46 @@
 package com.jalinyiel.coursystem.system.repository;
 
 import com.jalinyiel.coursystem.system.domain.Teacher;
-import com.jalinyiel.coursystem.system.domain.TeacherExample;
+import com.jalinyiel.coursystem.system.domain.TeacherDTO;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
 
 public interface TeacherMapper {
-    long countByExample(TeacherExample example);
+    @Select("SELECT * FROM teacher")
+    @Results({
+            @Result(column = "teacher_id",property = "teacherId"),
+            @Result(column = "teacher_name",property = "teacherName"),
+            @Result(column = "department",property = "department")
+    })
+    List<Teacher> getAll();
 
-    int deleteByExample(TeacherExample example);
 
-    int deleteByPrimaryKey(Long teacherId);
+    @Select("SELECT teacher_id,teacher_name,department,password FROM teacher,user " +
+            "WHERE teacher_id = user_id")
+    @Results({
+            @Result(column = "teacher_id",property = "teacherId"),
+            @Result(column = "teacher_name",property = "teacherName"),
+            @Result(column = "department",property = "department"),
+            @Result(column = "password",property = "password")
+    })
+    List<TeacherDTO> getAllTeacherDTO();
 
-    int insert(Teacher record);
+    @Select("SELECT * FROM teacher WHERE teacher_id = #{id}")
+    @Results({
+            @Result(column = "teacher_id",property = "teacherId"),
+            @Result(column = "teacher_name",property = "teacherName"),
+            @Result(column = "department",property = "department")
+    })
+    Teacher findById(Long id);
 
-    int insertSelective(Teacher record);
+    @Delete("DELETE FROM teacher WHERE teacher_id = #{id}")
+    void deleteById(Long id);
 
-    List<Teacher> selectByExample(TeacherExample example);
+    @Update("UPDATE teacher SET teacher_name = #{teacherName},department = #{department} WHERE teacher_id = #{teacherId}")
+    void update(Teacher teacher);
 
-    Teacher selectByPrimaryKey(Long teacherId);
-
-    int updateByExampleSelective(@Param("record") Teacher record, @Param("example") TeacherExample example);
-
-    int updateByExample(@Param("record") Teacher record, @Param("example") TeacherExample example);
-
-    int updateByPrimaryKeySelective(Teacher record);
-
-    int updateByPrimaryKey(Teacher record);
+    @Insert("INSERT INTO teacher(teacher_id,teacher_name,department) VALUES (#{teacherId},#{teacherName},#{department})")
+    void insert(Teacher teacher);
 }

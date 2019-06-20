@@ -22,7 +22,8 @@ public class CourseService {
     public List<Map<String,Object>> getAllWithTea() {
         return courseMapper.getAllCourseWithTea();
     }
-    public Course findByNo(Long no) {
+
+    public Course findByNo(Integer no) {
         return courseMapper.findByNo(no);
     }
 
@@ -30,7 +31,7 @@ public class CourseService {
         courseMapper.update(course);
     }
 
-    public void deleteByNo(Long no) {
+    public void deleteByNo(Integer no) {
         courseMapper.deleteByNo(no);
     }
 

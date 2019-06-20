@@ -20,8 +20,8 @@ public class TeachService {
         return teachMapper.findById(id);
     }
 
-    public void updateTeache(Teach teach) {
-        teachMapper.updateTeache(teach);
+    public void updateTeach(Teach teach) {
+        teachMapper.updateTeach(teach);
     }
 
     public  void deleteTeach(Teach teach) {

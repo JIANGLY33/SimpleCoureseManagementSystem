@@ -15,6 +15,15 @@ public class Teacher {
         this.teacherId = teacherId;
     }
 
+    public Teacher(Long teacherId, String teacherName, String department) {
+        this.teacherId = teacherId;
+        this.teacherName = teacherName;
+        this.department = department;
+    }
+
+    public Teacher() {
+    }
+
     public String getTeacherName() {
         return teacherName;
     }

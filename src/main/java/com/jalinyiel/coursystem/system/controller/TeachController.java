@@ -35,7 +35,7 @@ public class TeachController {
     public String gotoTeachingTasks(Model model, HttpServletRequest request) {
         List<Teach> tasks = teachService.getAll();
         model.addAttribute("tasks",tasks);
-        return jumper.go("/manager/teaching_task",request);
+        return jumper.go("manager/teaching_task",request);
     }
 
     @RequestMapping("/tasks")
@@ -60,20 +60,22 @@ public class TeachController {
     @RequestMapping("/taskUpdate")
     @ResponseBody
     public Message updateTeach(@RequestBody Teach teach) {
-        teachService.updateTeache(teach);
+        System.out.println("update: " + teach);
+        teachService.updateTeach(teach);
         return Message.success();
     }
 
     @RequestMapping("/deleteTask")
     @ResponseBody
     public Message deleteTeach(@RequestBody Teach teach) {
+        System.out.println("delete:" + teach);
         teachService.deleteTeach(teach);
         return Message.success();
     }
 
     @RequestMapping("/startCourse")
     @ResponseBody
-    public Message startCourse(Long courNo, String time,HttpServletRequest request) {
+    public Message startCourse(Integer courNo, String time,HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         teachService.add(new Teach(user.getUserId(),courNo,time));
@@ -82,7 +84,7 @@ public class TeachController {
 
     @RequestMapping("/endCourse")
     @ResponseBody
-    public Message endCourse(Long courNo,HttpServletRequest request) {
+    public Message endCourse(Integer courNo,HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         teachService.deleteTeach(new Teach(user.getUserId(),courNo,null));

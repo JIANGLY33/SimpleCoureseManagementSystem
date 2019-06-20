@@ -32,7 +32,7 @@ public class TeacherController {
     public String gotoTeachersInformation(Model model, HttpServletRequest request) {
         List<TeacherDTO> teacherDTOS = teacherService.getAllDto();
         model.addAttribute("teachers",teacherDTOS);
-        return jumper.go("/manager/teachers_information",request);
+        return jumper.go("manager/teachers_information",request);
     }
 
     @RequestMapping("/gotoTeaIndex")
@@ -41,7 +41,7 @@ public class TeacherController {
         User user = (User)session.getAttribute("user");
         Teacher teacher = teacherService.findById(user.getUserId());
         model.addAttribute("teacher",teacher);
-        return "/teacher/teacherInfo";
+        return "teacher/teacherInfo";
     }
 
     @RequestMapping(value = "/teaUpdate",method = RequestMethod.POST)

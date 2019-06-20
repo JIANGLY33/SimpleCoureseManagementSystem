@@ -26,7 +26,7 @@ public class StudentService {
     }
 
     public void update(Student student) {
-        studentMapper.Update(student);
+        studentMapper.update(student);
     }
 
     public List<StudentDTO> getAllStuDTO() {

@@ -24,21 +24,21 @@ public class CourseController {
     public String gotoCourseInformation(Model model, HttpServletRequest request) {
         List<Course> courses = courseService.getAll();
         model.addAttribute("courses",courses);
-        return jumper.go("/manager/courses_information",request);
+        return jumper.go("manager/courses_information",request);
     }
 
     @RequestMapping("/allcourses")
     public String gotoStuCourseInformation(Model model, HttpServletRequest request) {
         List<Map<String,Object>> courseWithTea = courseService.getAllWithTea();
         model.addAttribute("courses",courseWithTea);
-        return jumper.go("/student/stuCourses",request);
+        return jumper.go("student/stuCourses",request);
     }
 
     @RequestMapping("/teaAllCourses")
     public String gotoTeaCourseInformation(Model model, HttpServletRequest request) {
         List<Course> courses = courseService.getAll();
         model.addAttribute("courses",courses);
-        return jumper.go("/teacher/teaCourses",request);
+        return jumper.go("teacher/teaCourses",request);
     }
 
     @RequestMapping(value = "/courseUpdate",method = RequestMethod.POST)
@@ -53,7 +53,7 @@ public class CourseController {
 
     @RequestMapping(value = "/deleteCourse",method = RequestMethod.POST)
     @ResponseBody
-    public Message deleteCourseByNo( Long courNo) {
+    public Message deleteCourseByNo( Integer courNo) {
         System.out.println(courNo);
         courseService.deleteByNo(courNo);
         return Message.success();
