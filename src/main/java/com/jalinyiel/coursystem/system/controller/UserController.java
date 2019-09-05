@@ -28,10 +28,10 @@ public class UserController {
 
 
 
-    @RequestMapping("/")
-    public String jumpIndex() {
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String jumpIndex() {
+//        return "index";
+//    }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody

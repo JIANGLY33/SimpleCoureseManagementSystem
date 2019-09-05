@@ -6,7 +6,6 @@ import com.jalinyiel.coursystem.system.service.CourseService;
 import com.jalinyiel.coursystem.system.service.StudentService;
 import com.jalinyiel.coursystem.system.service.TeacherService;
 import com.jalinyiel.coursystem.system.utils.Jumper;
-import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class ChooseController {
