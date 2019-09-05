@@ -14,7 +14,7 @@
 
 登陆后执行增删改查的界面：
 
-![afterlogin](https://github.com/JIANGLY33/SimpleCoureseManagementSystem/blob/master/pictures/login.png)
+![afterlogin](https://raw.githubusercontent.com/JIANGLY33/SimpleCoureseManagementSystem/master/pictures/afterlogin.png)
 
 由于不想在前端上花费太多时间，因此在界面上选择了基于现有的模板进行修改，并且绝大多数数据操作的界面都和上图中的类似，因此不再做重复展示。数据在修改后将由Ajax及时地显示修改的界面。
 
